@@ -65,3 +65,12 @@ export class BaseHttpService {
         return result;
     }
 }
+
+// Funkcja wywołująca:
+// .catch(err => this.handleError(err));
+// 
+get() {
+    return this.http.get('http://ws.propcard.pl/api/Account/UserInfo', this.options)
+      .map(a=>a.json())
+      .catch(err => this.handleError(err));
+  }
