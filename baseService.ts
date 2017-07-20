@@ -20,6 +20,7 @@ export class BaseHttpService {
             error.status ? `${error.status} - ${error.statusText}` : 'Other error.';
 
         let description: string;
+        let states:Array<any> = [];
 
         switch (error.status) {
             case 0:
@@ -28,7 +29,7 @@ export class BaseHttpService {
 
             case 400:
                 description = 'Bad request.'
-                this.getModelStates(error);
+                states = this.getModelStates(error);
                 break;
 
             case 401:
@@ -49,7 +50,7 @@ export class BaseHttpService {
         }
 
         console.log(error);
-        return Observable.throw({description: description, status: error.status, details: errMsg});
+        return Observable.throw({description: description, status: error.status, details: errMsg, states: states});
     }
 
     private getModelStates(error :any) {
